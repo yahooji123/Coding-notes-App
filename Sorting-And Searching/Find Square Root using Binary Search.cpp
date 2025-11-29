@@ -1,4 +1,10 @@
 // very important question for amazon,flipcart,microsoft,google
+//main method for amazon in method -2
+
+
+
+//this is method-1 
+
 
 #include <iostream>
 using namespace std;
