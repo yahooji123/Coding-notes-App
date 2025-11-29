@@ -9,6 +9,7 @@ using namespace std;
 Example:
 
 
+
 Input: arr = [0, 2, 5, 3, 1]
 Output: 2
 In this example, the peak element is 5, located at index 2.
