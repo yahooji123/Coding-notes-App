@@ -86,6 +86,7 @@ Output = 2
 Pairs → (1,3), (3,5)
 
 
+
 👉 (1,3) appears twice but counted once because of set
 
 ✅ Test Case 2 (k = 0 case)
