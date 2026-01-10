@@ -12,6 +12,7 @@ Output: 0
 */
 
 struct Node
+
 {
     int data;
     Node *next;
