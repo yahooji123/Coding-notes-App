@@ -8,7 +8,9 @@ const flash = require('connect-flash');
 const methodOverride = require('method-override');
 const path = require('path');
 const dotenv = require('dotenv');
-const MongoStore = require('connect-mongo');
+// Handle potential default export issue with connect-mongo
+const MongoStoreRaw = require('connect-mongo');
+const MongoStore = MongoStoreRaw.default || MongoStoreRaw;
 const helmet = require('helmet');
 const compression = require('compression');
 
