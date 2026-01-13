@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coding Notes - Documentation</title>
+    <!-- Highlight.js -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h1>Code<span>Notes</span></h1>
+                <input type="text" id="searchInput" placeholder="Search...">
+            </div>
+            <div class="sidebar-content" id="sidebarContent">
+                <!-- Javascript will populate this from API -->
+                <div style="padding: 20px; color: #aaa; text-align: center;">Loading chapters...</div>
+            </div>
+            <!-- Added small footer for Admin Access -->
+            <div style="padding: 10px; border-top: 1px solid var(--border-color); text-align: center;">
+                <a href="/login" style="color: var(--text-secondary); font-size: 12px; text-decoration: none;">Admin Login</a>
+                <% if(user) { %> | <a href="/dashboard" style="color: var(--primary-color); font-size: 12px; text-decoration: none;">Dashboard</a> <% } %>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="left-controls">
+                    <button id="toggleSidebar" class="mobile-only">☰</button>
+                    <div class="breadcrumbs" id="breadcrumbs">Home</div>
+                </div>
+                <div class="right-controls">
+                    <button id="fontDecrease" class="icon-btn" title="Decrease Font Size">A-</button>
+                    <button id="fontIncrease" class="icon-btn" title="Increase Font Size">A+</button>
+                    <button id="themeToggle" class="icon-btn" title="Toggle Dark/Light Mode">🌙</button>
+                </div>
+            </header>
+
+            <div class="content-wrapper">
+                <div class="welcome-screen" id="welcomeScreen">
+                    <div class="welcome-icon" style="font-size: 48px; margin-bottom: 20px;">🚀</div>
+                    <h2>Welcome to Coding Notes</h2>
+                    <p>Select a topic from the sidebar to view details, code snippets, and explanations.</p>
+                </div>
+
+                <div class="problem-view" id="contentView" style="display: none;">
+                    <h1 id="pageTitle" class="problem-title">Title Here</h1>
+                    
+                    <div class="code-section">
+                        <div class="section-header">
+                            <h3><span class="icon">💻</span> Solution / Notes</h3>
+                            <div class="action-buttons">
+                                <button class="action-btn" id="copyBtn">📋 Copy</button>
+                            </div>
+                        </div>
+                        <pre><code id="codeBlock" class="language-javascript"></code></pre>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+    <script>
+        // Pass user state if needed, though mostly handled by fetch
+        const isUserLoggedIn = <%= user ? 'true' : 'false' %>;
+    </script>
+</body>
+</html>

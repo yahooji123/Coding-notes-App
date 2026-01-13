@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= note.title %> - Coding Notes</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Prism Syntax Highlighter (Dracula Theme) -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body style="background-color: #f9fafb;">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">Coding Notes</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" id="markAsReadBtn">Mark as Completed</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5 mb-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="card note-card pb-5" style="cursor: default; transform: none;">
+                    <div class="card-body p-5">
+                        <div class="mb-4">
+                            <span class="badge bg-secondary mb-2"><%= note.category %></span>
+                            <h1 class="fw-bold display-5 mb-3"><%= note.title %></h1>
+                            <p class="lead text-muted"><%= note.description %></p>
+                        </div>
+                        
+                        <hr class="my-4">
+                        
+                        <div class="content mt-4">
+                            <!-- Try to auto-detect language or default to C++/Java style -->
+                            <pre><code class="language-clike"><%= note.content %></code></pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-4 text-center">
+                    <a href="/" class="btn btn-outline-secondary px-4 rounded-pill">Back to Dashboard</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    
+    <script>
+        // Check if read
+        const id = "<%= note._id %>";
+        const readNotes = JSON.parse(localStorage.getItem('readNotes') || '[]');
+        const btn = document.getElementById('markAsReadBtn');
+
+        if(readNotes.includes(id)) {
+            btn.innerText = "✓ Completed";
+            btn.classList.add('disabled');
+        }
+
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            if(!readNotes.includes(id)) {
+                readNotes.push(id);
+                localStorage.setItem('readNotes', JSON.stringify(readNotes));
+                btn.innerText = "✓ Completed";
+                btn.classList.add('disabled');
+            }
+        });
+    </script>
+</body>
+</html>
