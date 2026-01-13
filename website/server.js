@@ -8,6 +8,9 @@ const flash = require('connect-flash');
 const methodOverride = require('method-override');
 const path = require('path');
 const dotenv = require('dotenv');
+const MongoStore = require('connect-mongo');
+const helmet = require('helmet');
+const compression = require('compression');
 
 dotenv.config();
 
@@ -55,14 +58,25 @@ passport.deserializeUser(async (id, done) => {
 });
 
 // Middleware
+app.use(helmet({
+  contentSecurityPolicy: false, // Disabling CSP for simplicity with inline scripts/styles if any
+}));
+app.use(compression());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride('_method'));
 app.use(session({
-  secret: 'secret',
-  resave: true,
-  saveUninitialized: true
+  secret: process.env.SESSION_SECRET || 'secret',
+  resave: false,
+  saveUninitialized: false,
+  store: MongoStore.create({ 
+    mongoUrl: process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/codingNotesDB',
+    collectionName: 'sessions'
+  }),
+  cookie: {
+    maxAge: 1000 * 60 * 60 * 24 // 1 day
+  }
 }));
 app.use(passport.initialize());
 app.use(passport.session());
